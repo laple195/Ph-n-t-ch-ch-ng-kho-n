@@ -1,10 +1,8 @@
-"""
-==================================================================
- PHAN TICH XU HUONG CO PHIEU MY / NHAT / FOREX - 1 FILE DUY NHAT
- Chay local:      streamlit run app.py
- Hoac deploy mien phi len Streamlit Community Cloud (xem README).
-==================================================================
-"""
+# ==================================================================
+#  PHAN TICH XU HUONG CO PHIEU MY / NHAT / FOREX - 1 FILE DUY NHAT
+#  Chay local:      streamlit run app.py
+#  Hoac deploy mien phi len Streamlit Community Cloud (xem README).
+# ==================================================================
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -14,11 +12,9 @@ import streamlit as st
 # ------------------------------------------------------------------
 # PHAN 1: CHI BAO KY THUAT (indicators)
 # ------------------------------------------------------------------
-"""
-Các hàm tính chỉ báo kỹ thuật (technical indicators).
-Tất cả nhận vào một DataFrame có cột: Open, High, Low, Close, Volume
-và trả về Series hoặc DataFrame chỉ báo tương ứng.
-"""
+# Các hàm tính chỉ báo kỹ thuật (technical indicators).
+# Tất cả nhận vào một DataFrame có cột: Open, High, Low, Close, Volume
+# và trả về Series hoặc DataFrame chỉ báo tương ứng.
 
 
 def sma(series: pd.Series, period: int) -> pd.Series:
@@ -128,15 +124,13 @@ def supertrend(df: pd.DataFrame, period: int = 10, multiplier: float = 3.0):
 # ------------------------------------------------------------------
 # PHAN 2: CAC PHUONG PHAP GIAO DICH (strategies)
 # ------------------------------------------------------------------
-"""
-Mỗi chiến lược nhận vào DataFrame giá (Open, High, Low, Close, Volume)
-và trả về một pd.Series vị thế (position):
-   1  = giữ lệnh mua (long)
-  -1  = giữ lệnh bán (short)
-   0  = đứng ngoài (flat)
-Vị thế tại ngày i được coi là quyết định dựa trên dữ liệu đã đóng cửa
-tới ngày i (không nhìn tương lai) và được áp dụng cho lợi nhuận ngày i+1.
-"""
+# Mỗi chiến lược nhận vào DataFrame giá (Open, High, Low, Close, Volume)
+# và trả về một pd.Series vị thế (position):
+#    1  = giữ lệnh mua (long)
+#   -1  = giữ lệnh bán (short)
+#    0  = đứng ngoài (flat)
+# Vị thế tại ngày i được coi là quyết định dựa trên dữ liệu đã đóng cửa
+# tới ngày i (không nhìn tương lai) và được áp dụng cho lợi nhuận ngày i+1.
 
 
 def strat_ma_crossover(df, fast=20, slow=50):
@@ -219,12 +213,10 @@ STRATEGIES = {
 # ------------------------------------------------------------------
 # PHAN 3: BACKTEST ENGINE
 # ------------------------------------------------------------------
-"""
-Chạy backtest cho một chuỗi vị thế (position series) trên dữ liệu giá,
-tính các chỉ số hiệu suất: win rate, profit factor, expectancy, tổng lợi
-nhuận, max drawdown. Không dùng win rate làm tiêu chí chọn chiến lược
-chính — dùng profit factor (kết hợp cả tỷ lệ thắng lẫn độ lớn thắng/thua).
-"""
+# Chạy backtest cho một chuỗi vị thế (position series) trên dữ liệu giá,
+# tính các chỉ số hiệu suất: win rate, profit factor, expectancy, tổng lợi
+# nhuận, max drawdown. Không dùng win rate làm tiêu chí chọn chiến lược
+# chính — dùng profit factor (kết hợp cả tỷ lệ thắng lẫn độ lớn thắng/thua).
 
 
 def _segment_trades(position: pd.Series, strat_returns: pd.Series):
@@ -328,13 +320,11 @@ def rank_strategies(results: dict, min_trades: int = 5):
 # ------------------------------------------------------------------
 # PHAN 4: LAY DU LIEU (yfinance)
 # ------------------------------------------------------------------
-"""
-Lấy dữ liệu giá lịch sử bằng yfinance (miễn phí, dữ liệu có độ trễ
-~15-20 phút với dữ liệu intraday). Hỗ trợ 3 loại thị trường:
-  US  -> cổ phiếu Mỹ, ví dụ: AAPL, TSLA
-  JP  -> cổ phiếu Nhật, tự thêm hậu tố .T, ví dụ: 7203 -> 7203.T
-  FX  -> forex, tự thêm hậu tố =X, ví dụ: USDJPY -> USDJPY=X
-"""
+# Lấy dữ liệu giá lịch sử bằng yfinance (miễn phí, dữ liệu có độ trễ
+# ~15-20 phút với dữ liệu intraday). Hỗ trợ 3 loại thị trường:
+#   US  -> cổ phiếu Mỹ, ví dụ: AAPL, TSLA
+#   JP  -> cổ phiếu Nhật, tự thêm hậu tố .T, ví dụ: 7203 -> 7203.T
+#   FX  -> forex, tự thêm hậu tố =X, ví dụ: USDJPY -> USDJPY=X
 
 MARKET_LABELS = {
     "US": "Cổ phiếu Mỹ",
@@ -387,10 +377,8 @@ def fetch_latest_quote(ticker: str):
 # ------------------------------------------------------------------
 # PHAN 5: GIAO DIEN STREAMLIT
 # ------------------------------------------------------------------
-"""
-Ứng dụng phân tích xu hướng cổ phiếu Mỹ / Nhật / Forex.
-Chạy: streamlit run app.py
-"""
+# Ứng dụng phân tích xu hướng cổ phiếu Mỹ / Nhật / Forex.
+# Chạy: streamlit run app.py
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
